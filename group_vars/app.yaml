@@ -1,3 +1,5 @@
 ---
-files: ['mongodb-secret.yaml', 'mongodb-cm.yaml', 'mongodb.yaml', 'mongo-express.yaml', 'ajedrez-app.yaml', 'myingress.yaml']
+k8s_namespace: testing
+
+
 

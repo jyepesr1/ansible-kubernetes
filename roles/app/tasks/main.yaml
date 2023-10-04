@@ -1,7 +1,7 @@
 ---
 - name: Create a k8s namespace
   kubernetes.core.k8s:
-    name: testing
+    name: "{{ k8s_namespace }}"
     api_version: v1
     kind: Namespace
     state: present
@@ -9,7 +9,7 @@
 - name: Create MongoDB app
   kubernetes.core.k8s:
     state: present
-    namespace: testing
+    namespace: "{{ k8s_namespace }}"
     definition: "{{ lookup('file', 'files/mongoDB/{{ item }}.yaml') | from_yaml_all }}"
   loop:
     - 01-mongodb-cm
@@ -25,5 +25,5 @@
     definition: "{{ lookup('file', 'files/mongo-express.yaml') | from_yaml_all }}"
 
 - name: Rollout MongoDB Express restart if configmap/secrets changed
-  shell: kubectl rollout restart deployment mongo-express
+  shell: kubectl rollout restart deployment mongo-express -n {{ k8s_namespace }}
   when: mongo_resources.changed
