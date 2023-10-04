@@ -1,0 +1,43 @@
+name: Ansible Deploy
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  run-playbooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: lab01 
+          cluster-name: lab-cluster
+
+      - name: Get ansible pass
+        run: echo "${{ secrets.VAULT_PASS }}" > /home/runner/work/_temp/.vault-ci-pass
+
+      - name: Run ansible script
+        shell: bash
+        env:
+          ANSIBLE_VAULT_PASSWORD_FILE: /home/runner/work/_temp/.vault-ci-pass
+        run: |
+          ansible-playbook ansible/kubernetes-deployment.yml
+
+      - name: Clean up
+        if: always()
+        run: rm /home/runner/work/_temp/.vault-ci-pass
