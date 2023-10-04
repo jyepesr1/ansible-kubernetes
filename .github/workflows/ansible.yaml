@@ -28,19 +28,17 @@ jobs:
           resource-group: lab01 
           cluster-name: lab-cluster
 
-      - name: Get ansible pass
-        run: echo "${{ secrets.VAULT_PASS }}" > /home/runner/work/_temp/.vault-ci-pass
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: kubernetes-deployment.yml
+          # Optional, directory where playbooks live
+          directory: ./
+          # Optional, literal inventory file contents
+          inventory: |
+            [all]
+            localhost
+          # Optional, encrypted vault password
+          vault_password: ${{secrets.VAULT_PASS}}
 
-      - name: Install ansible
-        run: python3 -m pip install --user ansible-core openshift pyyaml kubernetes 
-
-      - name: Run ansible script
-        shell: bash
-        env:
-          ANSIBLE_VAULT_PASSWORD_FILE: /home/runner/work/_temp/.vault-ci-pass
-        run: |
-          ansible-playbook kubernetes-deployment.yml
-
-      - name: Clean up
-        if: always()
-        run: rm /home/runner/work/_temp/.vault-ci-pass
