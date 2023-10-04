@@ -16,6 +16,7 @@
     - 02-mongodb-secret
     - 03-mongodb-sts
     - 04-mongodb-svc
+    - 05-mongodb-dep
   register: mongo_resources
 
 - name: Create MongoDB Express deployment
