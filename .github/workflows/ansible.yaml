@@ -32,7 +32,7 @@ jobs:
         run: echo "${{ secrets.VAULT_PASS }}" > /home/runner/work/_temp/.vault-ci-pass
 
       - name: Install ansible
-        run: pip install openshift pyyaml kubernetes 
+        run: python3 -m pip install --user ansible-core openshift pyyaml kubernetes 
 
       - name: Run ansible script
         shell: bash
