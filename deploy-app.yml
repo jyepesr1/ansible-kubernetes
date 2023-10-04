@@ -1,5 +1,5 @@
 ---
-- name: Realizando pruebas finales al Cluster
+- name: Deploy K8s app
   hosts: localhost
   vars_files:
     - 'group_vars/app.yaml'

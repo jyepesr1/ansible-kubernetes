@@ -31,6 +31,9 @@ jobs:
       - name: Get ansible pass
         run: echo "${{ secrets.VAULT_PASS }}" > /home/runner/work/_temp/.vault-ci-pass
 
+      - name: Install ansible
+        run: pipx install ansible-core
+
       - name: Run ansible script
         shell: bash
         env:
