@@ -25,6 +25,15 @@
     namespace: testing
     definition: "{{ lookup('file', 'files/mongo-express.yaml') | from_yaml_all }}"
 
+- name: Create Vote app deployment
+  kubernetes.core.k8s:
+    state: present
+    namespace: testing
+    definition: "{{ lookup('file', 'files/vote-app/{{ item }}.yaml') | from_yaml_all }}"
+  loop:
+    - azure-vote-app
+    - hpa
+
 - name: Rollout MongoDB Express restart if configmap/secrets changed
   shell: kubectl rollout restart deployment mongo-express -n {{ k8s_namespace }}
   when: mongo_resources.changed
