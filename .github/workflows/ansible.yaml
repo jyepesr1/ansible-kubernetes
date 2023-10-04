@@ -29,7 +29,9 @@ jobs:
           cluster-name: lab-cluster
 
       - name: Install deps
-        run: pipx install kubernetes
+        run: |
+          source /opt/pipx/venvs/ansible-core/bin/activate
+          pip install kubernetes
 
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
