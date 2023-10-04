@@ -1,0 +1,5 @@
+---
+# Llamamos a todos los playbooks relacionados a la instalación de Kubernetes
+
+# Realizamos pruebas finales al cluster recién desplegado
+- import_playbook: deploy-app.yml

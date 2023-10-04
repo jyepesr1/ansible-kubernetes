@@ -1,0 +1,8 @@
+---
+- name: Realizando pruebas finales al Cluster
+  hosts: localhost
+  vars_files:
+    - 'group_vars/app.yaml'
+  gather_facts: true
+  roles:
+    - app
