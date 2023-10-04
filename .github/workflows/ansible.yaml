@@ -28,6 +28,9 @@ jobs:
           resource-group: lab01 
           cluster-name: lab-cluster
 
+      - name: Install deps
+        run: pipx install --include-deps ansible
+
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
