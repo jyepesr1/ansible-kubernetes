@@ -36,7 +36,7 @@ jobs:
         env:
           ANSIBLE_VAULT_PASSWORD_FILE: /home/runner/work/_temp/.vault-ci-pass
         run: |
-          ansible-playbook ansible/kubernetes-deployment.yml
+          ansible-playbook kubernetes-deployment.yml
 
       - name: Clean up
         if: always()
