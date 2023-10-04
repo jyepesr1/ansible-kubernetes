@@ -29,10 +29,7 @@ jobs:
           cluster-name: lab-cluster
 
       - name: Install deps
-        run: |
-          sudo su
-          source /opt/pipx/venvs/ansible-core/bin/activate
-          sudo pip install kubernetes
+        run: /opt/pipx/venvs/ansible-core/bin/python -m pip install pyyaml kubernetes 
 
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
