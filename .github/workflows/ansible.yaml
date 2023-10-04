@@ -30,6 +30,7 @@ jobs:
 
       - name: Install deps
         run: |
+          sudo su
           source /opt/pipx/venvs/ansible-core/bin/activate
           sudo pip install kubernetes
 
