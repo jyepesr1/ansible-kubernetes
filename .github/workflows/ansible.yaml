@@ -35,10 +35,6 @@ jobs:
           playbook: kubernetes-deployment.yml
           # Optional, directory where playbooks live
           directory: ./
-          # Optional, literal inventory file contents
-          inventory: |
-            [all]
-            localhost
           # Optional, encrypted vault password
           vault_password: ${{secrets.VAULT_PASS}}
 
